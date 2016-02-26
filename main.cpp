@@ -214,16 +214,16 @@ main(int argc, char* argv[]) {
     double duration;
     start = std::clock();
     Result aResult = FindPalindromeStatic(lines, numThreads);
-    std::cout << "PartA: " << aResult.lineNumber << " " << aResult.firstChar << " " << aResult.length << ":\t" <<
-    lines.at(aResult.lineNumber).substr(aResult.firstChar, aResult.length) << std::endl;
     duration = (std::clock() - start);
     std::cout << std::fixed << "Part A time: " << duration << '\n';
+    std::cout << "PartA: " << aResult.lineNumber << " " << aResult.firstChar << " " << aResult.length << ":\t" <<
+    lines.at(aResult.lineNumber).substr(aResult.firstChar, aResult.length) << std::endl;
     //Part B
     pb = std::clock();
     Result bResult = FindPalindromeDynamic(lines, numThreads, chunkSize);
-    std::cout << "PartB: " << bResult.lineNumber << " " << bResult.firstChar << " " << bResult.length << ":\t" <<
-    lines.at(bResult.lineNumber).substr(bResult.firstChar, bResult.length) << std::endl;
     durb = (std::clock() - pb);
     std::cout << "Part B time: " << durb << '\n';
+    std::cout << "PartB: " << bResult.lineNumber << " " << bResult.firstChar << " " << bResult.length << ":\t" <<
+    lines.at(bResult.lineNumber).substr(bResult.firstChar, bResult.length) << std::endl;
     return 0;
 }
