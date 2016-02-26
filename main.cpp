@@ -143,7 +143,7 @@ Result FindPalindromeStatic(Lines const& lines, int numThreads){
             cout<<"thread "<<tid = omp_get_thread_num()<< " found a palindrome"<<endl;
         }
     }
-    }
+    
     Result largestPal = {0,0,0};
     for (auto &var : results)
     {
