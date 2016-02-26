@@ -54,7 +54,6 @@ strip(std::ifstream& file)
 
 // CHANGE This Code (you can add more functions)-----------------------------------------------------------------------------
 Result SearchFromCentre(std::string line, int lineNum){
-    std::string line;
     int bestLen = 0;
     int bestStart = 0;
     int lineNumber = lineNum;
