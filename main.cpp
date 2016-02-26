@@ -138,10 +138,11 @@ Result FindPalindromeStatic(Lines const& lines, int numThreads){
     for (int i = 0; i<lines.size(); i++)
     {
         Result palindrome = SearchFromCentre(lines[i], i);
+        cout<<"thread "<<omp_get_thread_num()<< " found a palindrome"<<endl;
         if (results[omp_get_thread_num()]<palindrome)
         {
             results[omp_get_thread_num()]  = palindrome;
-            cout<<"thread "<<omp_get_thread_num()<< " found a palindrome"<<endl;
+
         }
     }
 
@@ -160,6 +161,7 @@ Result FindPalindromeStatic(Lines const& lines, int numThreads){
 Result
 FindPalindromeDynamic(Lines const& lines, int numThreads, int chunkSize)
 {
+    omp_set_num_threads(4);
     vector<Result> results;
     for (int i = 0; i< numThreads; i++){
         results.push_back({0,0,0});
@@ -168,10 +170,11 @@ FindPalindromeDynamic(Lines const& lines, int numThreads, int chunkSize)
     for (int i = 0; i<lines.size(); i++)
     {
         Result palindrome = SearchFromCentre(lines[i], i);
+        cout<<"thread "<<omp_get_thread_num()<< " found a palindrome"<<endl;
         if (results[omp_get_thread_num()]<palindrome)
         {
             results[omp_get_thread_num()]  = palindrome;
-            cout<<"thread "<<omp_get_thread_num()<< " found a palindrome"<<endl;
+
         }
     }
 
