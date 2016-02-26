@@ -134,12 +134,15 @@ Result FindPalindromeStatic(Lines const& lines, int numThreads){
         results.push_back({0,0,0});
     }
     #pragma omp for schedule(static) nowait
-    for (int i = 0; i<lines.size(); i++){
+    for (int i = 0; i<lines.size(); i++)
+    {
         Result palindrome = SearchFromCentre(lines[i], i);
         if (results[omp_get_thread_num()]<palindrome)
         {
             results[omp_get_thread_num()]  = palindrome;
+            cout<<"thread "<<tid = omp_get_thread_num()<< " found a palindrome"<<endl;
         }
+    }
     }
     Result largestPal = {0,0,0};
     for (auto &var : results)
@@ -161,10 +164,13 @@ FindPalindromeDynamic(Lines const& lines, int numThreads, int chunkSize)
         results.push_back({0,0,0});
     }
     #pragma omp for schedule(static, chunkSize) nowait
-    for (int i = 0; i<lines.size(); i++){
+    for (int i = 0; i<lines.size(); i++)
+    {
         Result palindrome = SearchFromCentre(lines[i], i);
-        if (results[omp_get_thread_num()]<palindrome){
+        if (results[omp_get_thread_num()]<palindrome)
+        {
             results[omp_get_thread_num()]  = palindrome;
+            cout<<"thread "<<tid = omp_get_thread_num()<< " found a palindrome"<<endl;
         }
     }
 
