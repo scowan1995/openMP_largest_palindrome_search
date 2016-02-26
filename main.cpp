@@ -134,7 +134,7 @@ Result FindPalindromeStatic(Lines const& lines, int numThreads){
     for (int i = 0; i< numThreads; i++){
         results.push_back({0,0,0});
     }
-    #pragma omp parallel for schedule(static) nowait
+    #pragma omp parallel for schedule(static)
     for (int i = 0; i<lines.size(); i++)
     {
         Result palindrome = SearchFromCentre(lines[i], i);
@@ -167,7 +167,7 @@ FindPalindromeDynamic(Lines const& lines, int numThreads, int chunkSize)
     for (int i = 0; i< numThreads; i++){
         results.push_back({0,0,0});
     }
-    #pragma omp parallel for schedule(static, chunkSize) nowait
+    #pragma omp parallel for schedule(static, chunkSize)
     for (int i = 0; i<lines.size(); i++)
     {
         Result palindrome = SearchFromCentre(lines[i], i);
