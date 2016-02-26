@@ -134,12 +134,16 @@ Result FindPalindromeStatic(Lines const& lines, int numThreads){
     for (int i = 0; i< numThreads; i++){
         results.push_back({0,0,0});
     }
-    #pragma omp for schedule(static)
+    #pragma omp for schedule(static) nowait
     for (int i = 0; i<lines.size(); i++){
         Result palindrome = SearchFromCentre(lines[i], i);
         if (palindrome>results[omp_get_thread_num()])
+        {
             results[omp_get_thread_num()]  = palindrome;
+        }
+        cout<<"thread running: "<<omp_get_thread_num<<endl;
     }
+    cout<<"does no wait keep going!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
     Result largestPal = {0,0,0};
     for (auto &var : results)
     {
@@ -159,12 +163,15 @@ FindPalindromeDynamic(Lines const& lines, int numThreads, int chunkSize)
     for (int i = 0; i< numThreads; i++){
         results.push_back({0,0,0});
     }
-    #pragma omp for schedule(static, chunkSize)
+    #pragma omp for schedule(static, chunkSize) nowait
     for (int i = 0; i<lines.size(); i++){
         Result palindrome = SearchFromCentre(lines[i], i);
-        if (palindrome>results[omp_get_thread_num()])
+        if (results[omp_get_thread_num()]<palindrome){
             results[omp_get_thread_num()]  = palindrome;
+        }
+    cout<<"thread running: "<<omp_get_thread_num<<endl;
     }
+    cout<<"does no wait keep going!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
     Result largestPal = {0,0,0};
     for (auto &var : results)
     {
@@ -176,22 +183,20 @@ FindPalindromeDynamic(Lines const& lines, int numThreads, int chunkSize)
 // DONT CHANGE THIS -----------------------------------------------------------------------------------------------------------------
 
 int
-main(int argc, char* argv[])
-{
-    if(argc != 4)
-    {
-        std::cout << "ERROR: Incorrect number of arguments. Format is: <filename> <numThreads> <chunkSize>" << std::endl;
+main(int argc, char* argv[]) {
+    if (argc != 4) {
+        std::cout << "ERROR: Incorrect number of arguments. Format is: <filename> <numThreads> <chunkSize>" <<
+        std::endl;
         return 0;
     }
 
     std::ifstream theFile(argv[1]);
-    if(!theFile.is_open())
-    {
+    if (!theFile.is_open()) {
         std::cout << "ERROR: Could not open file " << argv[1] << std::endl;
         return 0;
     }
     int numThreads = std::atoi(argv[2]);
-    int chunkSize  = std::atoi(argv[3]);
+    int chunkSize = std::atoi(argv[3]);
 
     // std::cout << "Process " << argv[1] << " with " << numThreads << " threads using a chunkSize of " << chunkSize << " for dynamic scheduling\n" << std::endl;
 
@@ -204,13 +209,16 @@ main(int argc, char* argv[])
     double durb;
     double duration;
     start = std::clock();
-    std::cout << "PartA: " << aResult.lineNumber << " " << aResult.firstChar << " " << aResult.length << ":\t" << lines.at(aResult.lineNumber).substr(aResult.firstChar, aResult.length) << std::endl;
-    duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
-    std::cout<<std::fixed<<"Part A time: "<< duration <<'\n';
+    std::cout << "PartA: " << aResult.lineNumber << " " << aResult.firstChar << " " << aResult.length << ":\t" <<
+    lines.at(aResult.lineNumber).substr(aResult.firstChar, aResult.length) << std::endl;
+    duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
+    std::cout << std::fixed << "Part A time: " << duration << '\n';
     //Part B
     pb = std::clock();
     Result bResult = FindPalindromeDynamic(lines, numThreads, chunkSize);
-    std::cout << "PartB: " << bResult.lineNumber << " " << bResult.firstChar << " " << bResult.length << ":\t" << lines.at(bResult.lineNumber).substr(bResult.firstChar, bResult.length) << std::endl;
-    durb = ( std::clock() - pb ) / (double) CLOCKS_PER_SEC;
-    std::cout<<"Part B time: "<< durb <<'\n';
+    std::cout << "PartB: " << bResult.lineNumber << " " << bResult.firstChar << " " << bResult.length << ":\t" <<
+    lines.at(bResult.lineNumber).substr(bResult.firstChar, bResult.length) << std::endl;
+    durb = (std::clock() - pb) / (double) CLOCKS_PER_SEC;
+    std::cout << "Part B time: " << durb << '\n';
     return 0;
+}
