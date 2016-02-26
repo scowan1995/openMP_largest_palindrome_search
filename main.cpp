@@ -136,7 +136,7 @@ Result FindPalindromeStatic(Lines const& lines, int numThreads){
     #pragma omp for schedule(static) nowait
     for (int i = 0; i<lines.size(); i++){
         Result palindrome = SearchFromCentre(lines[i], i);
-        if (palindrome>results[omp_get_thread_num()])
+        if (results[omp_get_thread_num()]<palindrome)
         {
             results[omp_get_thread_num()]  = palindrome;
         }
