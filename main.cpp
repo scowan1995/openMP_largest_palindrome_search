@@ -140,9 +140,7 @@ Result FindPalindromeStatic(Lines const& lines, int numThreads){
         {
             results[omp_get_thread_num()]  = palindrome;
         }
-        cout<<"thread running: "<<omp_get_thread_num<<endl;
     }
-    cout<<"does no wait keep going!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
     Result largestPal = {0,0,0};
     for (auto &var : results)
     {
@@ -168,9 +166,8 @@ FindPalindromeDynamic(Lines const& lines, int numThreads, int chunkSize)
         if (results[omp_get_thread_num()]<palindrome){
             results[omp_get_thread_num()]  = palindrome;
         }
-    cout<<"thread running: "<<omp_get_thread_num<<endl;
     }
-    cout<<"does no wait keep going!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+
     Result largestPal = {0,0,0};
     for (auto &var : results)
     {
