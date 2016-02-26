@@ -207,12 +207,13 @@ main(int argc, char* argv[]) {
     Lines lines = strip(theFile);
 
     //Part A
-    Result aResult = FindPalindromeStatic(lines, numThreads);
+
     std::clock_t start;
     std::clock_t pb;
     double durb;
     double duration;
     start = std::clock();
+    Result aResult = FindPalindromeStatic(lines, numThreads);
     std::cout << "PartA: " << aResult.lineNumber << " " << aResult.firstChar << " " << aResult.length << ":\t" <<
     lines.at(aResult.lineNumber).substr(aResult.firstChar, aResult.length) << std::endl;
     duration = (std::clock() - start);
