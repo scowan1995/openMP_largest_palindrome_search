@@ -129,6 +129,7 @@ Result SearchFromCentre(std::string line, int lineNum){
 
 
 Result FindPalindromeStatic(Lines const& lines, int numThreads){
+    omp_set_num_threads(4);
     vector<Result> results;
     for (int i = 0; i< numThreads; i++){
         results.push_back({0,0,0});
