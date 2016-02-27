@@ -209,7 +209,7 @@ main(int argc, char* argv[]) {
 
     //Part A
     struct timespec start, end;
-
+    uint64_t diff;
 
     //std::clock_t start;
     double durb;
