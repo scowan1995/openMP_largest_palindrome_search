@@ -211,25 +211,25 @@ main(int argc, char* argv[]) {
     struct timespec start, end;
 
 
-    std::clock_t start;
+    //std::clock_t start;
     double durb;
     double duration;
-    start = std::clock();
+   // start = std::clock();
     clock_gettime(CLOCK_MONOTONIC, &start);
     Result aResult = FindPalindromeStatic(lines, numThreads);
     clock_gettime(CLOCK_MONOTONIC, &end);
     diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     printf("elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
-    duration = (std::clock() - start);
-    std::cout << std::fixed << "Part A time: " << duration / (double) CLOCKS_PER_SEC<< '\n';
+    //duration = (std::clock() - start);
+   // std::cout << std::fixed << "Part A time: " << duration / (double) CLOCKS_PER_SEC<< '\n';
     std::cout << "PartA: " << aResult.lineNumber << " " << aResult.firstChar << " " << aResult.length << ":\t" <<
     lines.at(aResult.lineNumber).substr(aResult.firstChar, aResult.length) << std::endl;
     //Part B
-    std::clock_t pb;
-    pb = std::clock();
+    //std::clock_t pb;
+    //pb = std::clock();
     Result bResult = FindPalindromeDynamic(lines, numThreads, chunkSize);
-    durb = (std::clock() - pb);
-    std::cout << "Part B time: " << durb/ (double) CLOCKS_PER_SEC << '\n';
+    //durb = (std::clock() - pb);
+    //std::cout << "Part B time: " << durb/ (double) CLOCKS_PER_SEC << '\n';
     std::cout << "PartB: " << bResult.lineNumber << " " << bResult.firstChar << " " << bResult.length << ":\t" <<
     lines.at(bResult.lineNumber).substr(bResult.firstChar, bResult.length) << std::endl;
     return 0;
