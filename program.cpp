@@ -219,7 +219,10 @@ main(int argc, char* argv[]) {
     Result aResult = FindPalindromeStatic(lines, numThreads);
     clock_gettime(CLOCK_MONOTONIC, &end);
     diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
-    printf("elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
+    ofstream myfile;
+    myfile.open ("results.txt");
+    myfile << "static "<<(long long unsigned int) diff<<" " << numThreads<<endl;
+
     //duration = (std::clock() - start);
    // std::cout << std::fixed << "Part A time: " << duration / (double) CLOCKS_PER_SEC<< '\n';
     std::cout << "PartA: " << aResult.lineNumber << " " << aResult.firstChar << " " << aResult.length << ":\t" <<
@@ -227,10 +230,14 @@ main(int argc, char* argv[]) {
     //Part B
     //std::clock_t pb;
     //pb = std::clock();
+    clock_gettime(CLOCK_MONOTONIC, &start);
     Result bResult = FindPalindromeDynamic(lines, numThreads, chunkSize);
+    clock_gettime(CLOCK_MONOTONIC, &end);
     //durb = (std::clock() - pb);
     //std::cout << "Part B time: " << durb/ (double) CLOCKS_PER_SEC << '\n';
+    myfile << "dynamic "<<(long long unsigned int) diff<<" " << numThreads<<" "<<chunkSize<<endl;
     std::cout << "PartB: " << bResult.lineNumber << " " << bResult.firstChar << " " << bResult.length << ":\t" <<
     lines.at(bResult.lineNumber).substr(bResult.firstChar, bResult.length) << std::endl;
+    myfile.close();
     return 0;
 }
