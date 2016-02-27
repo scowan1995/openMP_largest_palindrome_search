@@ -220,7 +220,7 @@ main(int argc, char* argv[]) {
     clock_gettime(CLOCK_MONOTONIC, &end);
     diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
     ofstream myfile;
-    myfile.open ("results.txt");
+    myfile.open ("results.txt", std::ios::app);
     myfile << "static "<<(long long unsigned int) diff<<" " << numThreads<<endl;
 
     //duration = (std::clock() - start);
