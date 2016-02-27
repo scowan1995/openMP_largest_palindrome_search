@@ -6,8 +6,9 @@
 #include <vector>
 #include <sstream>
 #include <queue>
-#include <ctime>
+#include <time.h>
 #include "omp.h"
+#define BILLION 1E9
 using namespace std;
 
 using Lines = std::vector<std::string>;
@@ -207,12 +208,18 @@ main(int argc, char* argv[]) {
     Lines lines = strip(theFile);
 
     //Part A
+    struct timespec start, end;
+
 
     std::clock_t start;
     double durb;
     double duration;
     start = std::clock();
+    clock_gettime(CLOCK_MONOTONIC, &start);
     Result aResult = FindPalindromeStatic(lines, numThreads);
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    diff = BILLION * (end.tv_sec - start.tv_sec) + end.tv_nsec - start.tv_nsec;
+    printf("elapsed time = %llu nanoseconds\n", (long long unsigned int) diff);
     duration = (std::clock() - start);
     std::cout << std::fixed << "Part A time: " << duration / (double) CLOCKS_PER_SEC<< '\n';
     std::cout << "PartA: " << aResult.lineNumber << " " << aResult.firstChar << " " << aResult.length << ":\t" <<
